@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Timevestor: Analytics
+{% endblock %}
+
+{% block main %}
+
+<h2 class="mb-4">Analytics</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>⏳ Total Invested</h5>
+                <h2>{{ total_hours }} hrs</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>🎯 Goals Completed</h5>
+                <h2>{{ completed_goals }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>✅ Tasks Completed</h5>
+                <h2>{{ completed_tasks }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-5">
+
+<h3>Time by Category</h3>
+
+{% for row in categories %}
+
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between">
+            <strong>{{ row.category }}</strong>
+            <span>{{ row.hours }} hrs</span>
+        </div>
+
+        <div class="progress mt-2">
+            <div
+                class="progress-bar"
+                style="width: {{ row.percentage }}%;"
+                role="progressbar"
+                aria-valuenow="{{ row.percentage }}"
+                aria-valuemin="0"
+                aria-valuemax="100">
+                {{ row.percentage }}%
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% else %}
+
+<p>No investments recorded yet.</p>
+
+{% endfor %}
+
+{% endblock %}

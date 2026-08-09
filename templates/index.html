@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+<h2 class="mb-4">Welcome, {{ user.username }} 👋</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>😴 Sleep</h5>
+                <h2>{{ user.sleep }} hrs</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>🎮 Free Time</h5>
+                <h2>{{ user.freetime }} hrs</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>⏳ Investable Time</h5>
+                <h2>{{ 24 - user.sleep - user.freetime }} hrs</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-5">
+
+<h3>Today's Investments</h3>
+
+{% if investments %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Hours</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for investment in investments %}
+        <tr>
+            <td>{{ investment.category }}</td>
+            <td>{{ investment.hours }}</td>
+            <td>{{ investment.notes }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+
+<p>No investments recorded today.</p>
+
+{% endif %}
+
+<a href="/invest" class="btn btn-primary">
+    + Invest Time
+</a>
+
+{% endblock %}

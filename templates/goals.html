@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Goals
+{% endblock %}
+
+{% block main %}
+
+<h2 class="mb-4">Semester Goals</h2>
+
+<div class="row">
+
+    {% for row in rows %}
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ row.category }}</h5>
+
+                <p>
+                    <strong>Target:</strong>
+                    {{ row.target_hours }} hrs
+                </p>
+
+                <p>
+                    <strong>Progress:</strong>
+                    {{ ((row.invested_hours / row.target_hours) * 100)|round(1) }}%
+                </p>
+
+                <p>
+                    <strong>Remaining:</strong>
+                    {{ row.target_hours - row.invested_hours }} hrs
+                </p>
+
+                <div class="progress mb-2">
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        style="width: {{ row.progress }}%;"
+                        aria-valuenow="{{ row.progress }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100">
+
+                        {{ row.progress }}%
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<a href="/goals/add" class="btn btn-primary">
+    + Add Goal
+</a>
+
+{% endblock %}

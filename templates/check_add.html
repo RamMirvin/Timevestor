@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Checklist/Add
+{% endblock %}
+
+{% block main %}
+
+<h2>Add To-do</h2>
+
+<form action="/checklist/add" method="POST">
+
+    <div class="mb-3">
+        <input
+            class="form-control mx-auto w-auto"
+            name="task"
+            placeholder="Task"
+            type="text"
+            autocomplete="off"
+            autofocus
+            required
+        >
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        Add To-do
+    </button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Timevestor: Checklist
+{% endblock %}
+
+{% block main %}
+
+<h2 class="mb-4">Daily Checklist</h2>
+
+<a href="/checklist/add" class="btn btn-primary mb-4">
+    + Add To-do
+</a>
+
+{% for row in rows %}
+
+<div class="card mb-3">
+    <div class="card-body">
+
+        <form action="/checklist" method="POST">
+
+            <input
+                type="hidden"
+                name="id"
+                value="{{ row.id }}"
+            >
+
+            <input
+                type="checkbox"
+                onchange="this.form.submit()"
+                {% if row.completed %}
+                    checked
+                {% endif %}
+            >
+
+            <label class="ms-2">
+                {{ row.task }}
+            </label>
+
+        </form>
+
+    </div>
+</div>
+
+{% else %}
+
+<p>No tasks for today.</p>
+
+{% endfor %}
+
+{% endblock %}

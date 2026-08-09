@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Timeline/Add
+{% endblock %}
+
+{% block main %}
+
+<h2 class="mb-4">Add Timeline Event</h2>
+
+<form action="/timeline/add" method="POST">
+
+    <div class="mb-3">
+        <input
+            class="form-control mx-auto w-auto"
+            name="title"
+            placeholder="Event"
+            type="text"
+            autocomplete="off"
+            autofocus
+            required
+        >
+    </div>
+
+    <div class="mb-3">
+        <input
+            class="form-control mx-auto w-auto"
+            name="description"
+            placeholder="Description"
+            type="text"
+            autocomplete="off"
+        >
+    </div>
+
+    <div class="mb-3">
+        <input
+            class="form-control mx-auto w-auto"
+            name="date"
+            type="date"
+            required
+        >
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        Add Event
+    </button>
+
+</form>
+
+{% endblock %}

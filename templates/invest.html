@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Invest
+{% endblock %}
+
+{% block main %}
+
+<h2 class="mb-4">Invest Time</h2>
+
+<form action="/invest" method="post">
+
+    <div class="mb-3">
+        <select class="form-select mx-auto w-auto" name="category" required>
+            <option disabled selected>Select Goal</option>
+
+            {% for cat in category %}
+                <option value="{{ cat.category }}">
+                    {{ cat.category }}
+                </option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <input
+            class="form-control mx-auto w-auto"
+            name="hours"
+            type="number"
+            min="0.5"
+            step="0.5"
+            placeholder="Hours Invested"
+            required>
+    </div>
+
+    <div class="mb-3">
+        <textarea
+            class="form-control mx-auto w-auto"
+            name="notes"
+            rows="3"
+            placeholder="Notes (optional)"></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        Invest
+    </button>
+
+</form>
+
+{% endblock %}
