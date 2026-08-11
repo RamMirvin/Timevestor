@@ -6,72 +6,87 @@
 
 {% block main %}
 
-<h2 class="mb-4">Welcome, {{ user.username }} 👋</h2>
+<section class="dashboard-header">
+    <div>
+        <p class="eyebrow">Your daily command centre</p>
+        <h1 class="page-title">Welcome back, {{ user.username }}</h1>
+        <p class="page-subtitle">Make the hours you have count. Plan your focus, then invest it in the goals that matter.</p>
+    </div>
+    <a href="/invest" class="btn btn-primary">+ Invest time</a>
+</section>
 
-<div class="row g-4">
-
+<section class="row g-3 g-lg-4 mb-4 mb-lg-5" aria-label="Daily time summary">
     <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>😴 Sleep</h5>
-                <h2>{{ user.sleep }} hrs</h2>
+        <article class="metric-card metric-card--sleep">
+            <div class="metric-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6.7 6.7 0 0 0 9 9A9 9 0 1 1 12 3Z"/></svg>
             </div>
-        </div>
+            <p class="metric-label">Sleep</p>
+            <p class="metric-value">{{ user.sleep }} <span class="metric-unit">hrs</span></p>
+        </article>
     </div>
 
     <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>🎮 Free Time</h5>
-                <h2>{{ user.freetime }} hrs</h2>
+        <article class="metric-card metric-card--free">
+            <div class="metric-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
             </div>
-        </div>
+            <p class="metric-label">Free time</p>
+            <p class="metric-value">{{ user.freetime }} <span class="metric-unit">hrs</span></p>
+        </article>
     </div>
 
     <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>⏳ Investable Time</h5>
-                <h2>{{ 24 - user.sleep - user.freetime }} hrs</h2>
+        <article class="metric-card metric-card--focus">
+            <div class="metric-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
             </div>
+            <p class="metric-label">Investable time</p>
+            <p class="metric-value">{{ 24 - user.sleep - user.freetime }} <span class="metric-unit">hrs</span></p>
+        </article>
+    </div>
+</section>
+
+<section class="content-card" aria-labelledby="today-investments-title">
+    <div class="content-card__header">
+        <div>
+            <h2 class="content-card__title" id="today-investments-title">Today’s investments</h2>
+            <p class="content-card__caption">A record of the time you have invested today.</p>
         </div>
+        <span class="today-badge">Today</span>
     </div>
 
-</div>
-
-<hr class="my-5">
-
-<h3>Today's Investments</h3>
-
-{% if investments %}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Category</th>
-            <th>Hours</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        {% for investment in investments %}
-        <tr>
-            <td>{{ investment.category }}</td>
-            <td>{{ investment.hours }}</td>
-            <td>{{ investment.notes }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-{% else %}
-
-<p>No investments recorded today.</p>
-
-{% endif %}
-
-<a href="/invest" class="btn btn-primary">
-    + Invest Time
-</a>
+    {% if investments %}
+        <div class="table-responsive">
+            <table class="investment-table table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Category</th>
+                        <th scope="col">Hours</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for investment in investments %}
+                    <tr>
+                        <td><span class="category-pill">{{ investment.category }}</span></td>
+                        <td class="hours-value">{{ investment.hours }} hrs</td>
+                        <td>{% if investment.notes %}{{ investment.notes }}{% else %}<span class="notes-empty">No notes added</span>{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <div class="empty-state__icon" aria-hidden="true">
+                <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-9 12h7l-1 6 9-12h-7l1-6Z"/></svg>
+            </div>
+            <h3>Start investing in yourself</h3>
+            <p>You have not recorded any focused time today. Add an investment to build momentum.</p>
+            <a href="/invest" class="btn btn-primary">Invest time</a>
+        </div>
+    {% endif %}
+</section>
 
 {% endblock %}
