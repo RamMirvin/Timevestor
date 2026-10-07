@@ -3,11 +3,10 @@ from flask import Flask, flash, session, request, render_template, redirect
 from datetime import date, timedelta
 
 def apology(message, code=400):
-    """Render message as an apology."""
-
     return render_template(
         "apology.html",
-        message=message
+        top=code,
+        bottom=message
     ), code
 
 def login_required(f):

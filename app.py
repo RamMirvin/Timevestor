@@ -79,7 +79,7 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """Log user in."""
+    """Log user in"""
 
     session.clear()
 
@@ -100,26 +100,16 @@ def login():
         )
 
         if len(rows) != 1:
-            return apology(
-                "Invalid username and/or password",
-                400
-            )
+            return apology("User does not exist", 400)
 
-        if not check_password_hash(
-            rows[0]["hash"],
-            password
-        ):
-            return apology(
-                "Invalid username and/or password",
-                400
-            )
+        if not check_password_hash(rows[0]["hash"], password):
+            return apology("Invalid password", 400)
 
         session["user_id"] = rows[0]["id"]
 
         return redirect("/")
 
     return render_template("login.html")
-
 
 # --------------------------------------------------
 # LOGOUT

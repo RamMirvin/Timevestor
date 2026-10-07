@@ -1,17 +1,20 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Apology
+Error
 {% endblock %}
 
 {% block main %}
-    <section class="error-state" aria-labelledby="error-title">
-        <p class="eyebrow">Something needs your attention</p>
-        <h1 class="page-title" id="error-title">We couldn’t complete that request</h1>
-        <p class="error-state__message">{{ message }}</p>
-        <div class="error-state__actions">
-            <button class="btn btn-outline-primary" type="button" onclick="history.back()">Go back</button>
-            <a class="btn btn-primary" href="/">Go to dashboard</a>
-        </div>
-    </section>
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="text-center">
+        <h1>{{ top }}</h1>
+        <p class="lead">{{ bottom }}</p>
+
+        <a href="/" class="btn btn-primary">
+            Go Home
+        </a>
+    </div>
+</div>
+
 {% endblock %}
